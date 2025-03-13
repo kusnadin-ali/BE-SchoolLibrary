@@ -7,6 +7,8 @@ import com.smbc.schoollibrary.constants.GenderEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,6 +37,11 @@ public class Members implements Serializable {
     private String studentNumber;
 
     @Column()
+    @Enumerated(EnumType.STRING)
     private GenderEnum gender;
+
+
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 
 }
