@@ -10,7 +10,7 @@ import com.smbc.schoollibrary.models.Members;
 
 @Repository
 public interface MembersRepository extends JpaRepository<Members, Long>{
-    List<Members> findAll();
+    List<Members> findAllByIsDeletedFalse();
 
     Optional<Members> findById(Long id);
 

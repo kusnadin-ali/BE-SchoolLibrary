@@ -24,7 +24,7 @@ public class MembersService {
     public ResponseEntity<?> getAllMember() {
         try {
 
-            List<Members> members = membersRepository.findAll();
+            List<Members> members = membersRepository.findAllByIsDeletedFalse();
             return ResponseUtil.success(members, ResponseMessage.SUCCESS_RETRIEVE_DATA);
         } catch (Exception e) {
             log.error("Error retrieve data", e);
@@ -59,6 +59,7 @@ public class MembersService {
             newMember.setFullname(request.getFullname());
             newMember.setStudentNumber(request.getStudentNumber());
             newMember.setGender(request.getGender());
+            newMember.setIsDeleted(false);
     
             membersRepository.save(newMember);
     
