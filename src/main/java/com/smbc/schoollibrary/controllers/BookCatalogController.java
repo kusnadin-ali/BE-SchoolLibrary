@@ -1,12 +1,15 @@
 package com.smbc.schoollibrary.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smbc.schoollibrary.constants.StatusBookEnum;
 import com.smbc.schoollibrary.dto.BookDto;
 import com.smbc.schoollibrary.services.BookCatalogService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,13 +24,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/book-catalog")
 @RequiredArgsConstructor
+@Slf4j
 public class BookCatalogController {
     
     private final BookCatalogService bookCatalogService;
     
     @GetMapping
-    public ResponseEntity<?> getAllBookCatalog() {
-        return bookCatalogService.getAllBookCatalog();
+    public ResponseEntity<?> getAllBookCatalog(@RequestParam(required = false) StatusBookEnum availability) {
+        return bookCatalogService.getAllBookCatalog(availability);
     }
     
     @GetMapping("/{id}")
