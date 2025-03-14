@@ -22,6 +22,7 @@ public interface BookCatalogRepository extends JpaRepository<BookCatalog, Long> 
 
     @Query(value = """
             SELECT
+                bc.id,
                 bc.book_code AS bookCode,
                 bc.title,
                 bc.genre,
