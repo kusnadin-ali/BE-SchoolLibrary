@@ -2,7 +2,7 @@ package com.smbc.schoollibrary.models;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,7 +40,7 @@ public class BookCatalog implements Serializable {
     private String publisher;
 
     @Column(name = "publish_date")
-    private Date publishDate;
+    private LocalDate publishDate;
 
     @Column()
     private String genre;

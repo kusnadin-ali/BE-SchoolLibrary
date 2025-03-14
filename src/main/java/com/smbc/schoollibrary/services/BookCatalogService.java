@@ -1,13 +1,16 @@
 package com.smbc.schoollibrary.services;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.smbc.schoollibrary.constants.StatusBookEnum;
 import com.smbc.schoollibrary.constants.ApiConstant.ResponseMessage;
 import com.smbc.schoollibrary.dto.BookDto;
+import com.smbc.schoollibrary.dto.ListBookPojo;
 import com.smbc.schoollibrary.models.BookCatalog;
 import com.smbc.schoollibrary.repository.BookCatalogRepository;
 import com.smbc.schoollibrary.utils.ResponseUtil;
@@ -22,9 +25,10 @@ public class BookCatalogService {
 
     private final BookCatalogRepository bookCatalogRepository;
 
-    public ResponseEntity<?> getAllBookCatalog() {
+    public ResponseEntity<?> getAllBookCatalog(StatusBookEnum availability) {
         try {
-            List<BookCatalog> bookCatalog = bookCatalogRepository.findAllByIsDeletedFalse();
+            List<ListBookPojo> bookCatalog = bookCatalogRepository
+                    .getAllWithAvailability(Objects.isNull(availability) ? null : availability.getStatus());
             return ResponseUtil.success(bookCatalog, ResponseMessage.SUCCESS_RETRIEVE_DATA);
 
         } catch (Exception e) {
