@@ -24,5 +24,6 @@ public class ApiConstant {
         public static final String ERROR_REMOVE_DATA = "Error remove data";
         public static final String ERROR_DATA_DOESNT_EXIST = "Error data doesn't exist";
         public static final String ERROR_DATA_ALREADY_EXIST = "Error data already exist";
+        public static final String ERROR_DATA_ALREADY_RENTED = "Error data already rented";
     }
 }

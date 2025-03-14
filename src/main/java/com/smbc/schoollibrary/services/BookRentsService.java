@@ -52,6 +52,14 @@ public class BookRentsService {
                 return ResponseUtil.error(null, ResponseMessage.ERROR_DATA_DOESNT_EXIST);
             }
 
+            Optional<BookRents> bookRentExist = bookRentsRepository.findByStudentNumberAndBookCodeAndStatus(
+                    request.getStudentNumber(), request.getBookCode(), StatusEnum.RENTED
+            );
+
+            if (bookRentExist.isPresent()) {
+                return ResponseUtil.error(null, ResponseMessage.ERROR_DATA_ALREADY_RENTED);
+            }
+
             LocalDate dateNow = LocalDate.now();
 
             BookRents newBookRent = new BookRents();
