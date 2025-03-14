@@ -7,6 +7,7 @@ import com.smbc.schoollibrary.services.MembersService;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RestController
 @RequestMapping("/members")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class MembersController {
     
     private final MembersService membersService;
