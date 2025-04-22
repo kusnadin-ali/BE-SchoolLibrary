@@ -3,11 +3,11 @@ package com.smbc.schoollibrary.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.smbc.schoollibrary.constants.ApiConstant.ResponseMessage;
 import com.smbc.schoollibrary.dto.MemberDto;
+import com.smbc.schoollibrary.dto.SMBCResponseDto;
 import com.smbc.schoollibrary.models.Members;
 import com.smbc.schoollibrary.repository.MembersRepository;
 import com.smbc.schoollibrary.utils.ResponseUtil;
@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MembersService {
     private final MembersRepository membersRepository;
 
-    public ResponseEntity<?> getAllMember() {
+    public SMBCResponseDto<Object> getAllMember() {
         try {
 
             List<Members> members = membersRepository.findAllByIsDeletedFalse();
@@ -32,7 +32,7 @@ public class MembersService {
         }
     }
 
-    public ResponseEntity<?> getMemberById(Long id) {
+    public SMBCResponseDto<Object> getMemberById(Long id) {
         try {
             Optional<Members> members = membersRepository.findByIdAndIsDeletedFalse(id);
     
@@ -47,7 +47,7 @@ public class MembersService {
         }
     }
 
-    public ResponseEntity<?> createMember(MemberDto request) {
+    public SMBCResponseDto<Object> createMember(MemberDto request) {
         try {
             Optional<Members> memberExist = membersRepository.findByStudentNumber(request.getStudentNumber());
     
@@ -70,7 +70,7 @@ public class MembersService {
         }
     }
 
-    public ResponseEntity<?> updateMember(Long id, MemberDto request) {
+    public SMBCResponseDto<Object> updateMember(Long id, MemberDto request) {
         try {
             Optional<Members> memberExist = membersRepository.findByIdAndIsDeletedFalse(id);
     
@@ -92,7 +92,7 @@ public class MembersService {
         }
     }
 
-    public ResponseEntity<?> deleteMember(Long id) {
+    public SMBCResponseDto<Object> deleteMember(Long id) {
         try {
             Optional<Members> memberExist = membersRepository.findByIdAndIsDeletedFalse(id);
     

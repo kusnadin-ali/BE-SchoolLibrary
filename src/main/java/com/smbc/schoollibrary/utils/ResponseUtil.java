@@ -1,56 +1,51 @@
 package com.smbc.schoollibrary.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.http.ResponseEntity;
-
 import com.smbc.schoollibrary.constants.ApiConstant.ResponseCode;
 import com.smbc.schoollibrary.constants.ApiConstant.ResponseMessage;
+import com.smbc.schoollibrary.dto.SMBCResponseDto;
 
 public class ResponseUtil {
-    
-    public static <T> ResponseEntity<Map<String, Object>> success() {
+
+    public static <T> SMBCResponseDto<T> success() {
         return success(null);
     }
 
-    public static <T> ResponseEntity<Map<String, Object>> success(T result) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("code", ResponseCode.SUCCESS_CODE);
-        response.put("message", ResponseMessage.SUCCESS_MESSAGE);
-        if (result != null)
-            response.put("result", result);
+    public static <T> SMBCResponseDto<T> success(T result) {
+        SMBCResponseDto<T> response = new SMBCResponseDto<>();
+        response.setCode(ResponseCode.SUCCESS_CODE);
+        response.setMessage(ResponseMessage.SUCCESS_MESSAGE);
+        response.setResult(result);
 
-        return ResponseEntity.ok(response);
+        return response;
     }
 
-    public static <T> ResponseEntity<Map<String, Object>> success(T result, String message) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("code", ResponseCode.SUCCESS_CODE);
-        response.put("message", message);
-        if (result != null)
-            response.put("result", result);
+    public static <T> SMBCResponseDto<T> success(T result, String message) {
 
-        return ResponseEntity.ok(response);
+        SMBCResponseDto<T> response = new SMBCResponseDto<>();
+        response.setCode(ResponseCode.SUCCESS_CODE);
+        response.setMessage(message);
+        response.setResult(result);
+
+        return response;
     }
 
-    public static <T> ResponseEntity<Map<String, Object>> error(T result) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("code", ResponseCode.ERROR_CODE);
-        response.put("message", ResponseMessage.ERROR_MESSAGE);
-        if (result != null)
-            response.put("result", result);
+    public static <T> SMBCResponseDto<T> error(T result) {
 
-        return ResponseEntity.status(200).body(response);
+        SMBCResponseDto<T> response = new SMBCResponseDto<>();
+        response.setCode(ResponseCode.ERROR_CODE);
+        response.setMessage(ResponseMessage.ERROR_MESSAGE);
+        response.setResult(result);
+
+        return response;
     }
 
-    public static <T> ResponseEntity<Map<String, Object>> error(T result, String message) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("code", ResponseCode.ERROR_CODE);
-        response.put("message", message);
-        if (result != null)
-            response.put("result", result);
+    public static <T> SMBCResponseDto<T> error(T result, String message) {
 
-        return ResponseEntity.status(200).body(response);
+        SMBCResponseDto<T> response = new SMBCResponseDto<>();
+        response.setCode(ResponseCode.ERROR_CODE);
+        response.setMessage(message);
+        response.setResult(result);
+
+        return response;
     }
 }

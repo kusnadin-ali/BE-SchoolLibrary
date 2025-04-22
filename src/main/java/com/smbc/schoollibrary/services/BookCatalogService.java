@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.smbc.schoollibrary.constants.StatusBookEnum;
 import com.smbc.schoollibrary.constants.ApiConstant.ResponseMessage;
 import com.smbc.schoollibrary.dto.BookDto;
 import com.smbc.schoollibrary.dto.ListBookPojo;
+import com.smbc.schoollibrary.dto.SMBCResponseDto;
 import com.smbc.schoollibrary.models.BookCatalog;
 import com.smbc.schoollibrary.repository.BookCatalogRepository;
 import com.smbc.schoollibrary.utils.ResponseUtil;
@@ -25,7 +25,7 @@ public class BookCatalogService {
 
     private final BookCatalogRepository bookCatalogRepository;
 
-    public ResponseEntity<?> getAllBookCatalog(StatusBookEnum availability) {
+    public SMBCResponseDto<Object> getAllBookCatalog(StatusBookEnum availability) {
         try {
             List<ListBookPojo> bookCatalog = bookCatalogRepository
                     .getAllWithAvailability(Objects.isNull(availability) ? null : availability.getStatus());
@@ -38,7 +38,7 @@ public class BookCatalogService {
 
     }
 
-    public ResponseEntity<?> getBookCatalogById(Long id) {
+    public SMBCResponseDto<Object> getBookCatalogById(Long id) {
         try {
             Optional<BookCatalog> bookCatalog = bookCatalogRepository.findByIdAndIsDeletedFalse(id);
 
@@ -53,7 +53,7 @@ public class BookCatalogService {
         }
     }
 
-    public ResponseEntity<?> addNewBookCatalog(BookDto request) {
+    public SMBCResponseDto<Object> addNewBookCatalog(BookDto request) {
         try {
             Optional<BookCatalog> bookExist = bookCatalogRepository.findByBookCode(request.getBookCode());
 
@@ -79,7 +79,7 @@ public class BookCatalogService {
         }
     }
 
-    public ResponseEntity<?> updateBookCatalog(Long id, BookDto request) {
+    public SMBCResponseDto<Object> updateBookCatalog(Long id, BookDto request) {
         try {
             Optional<BookCatalog> bookExist = bookCatalogRepository.findByIdAndIsDeletedFalse(id);
 
@@ -104,7 +104,7 @@ public class BookCatalogService {
         }
     }
 
-    public ResponseEntity<?> deleteBookCatalog(Long id) {
+    public SMBCResponseDto<Object> deleteBookCatalog(Long id) {
         try {
             Optional<BookCatalog> bookExist = bookCatalogRepository.findByIdAndIsDeletedFalse(id);
 

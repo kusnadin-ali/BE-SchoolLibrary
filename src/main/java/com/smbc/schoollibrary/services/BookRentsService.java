@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.smbc.schoollibrary.constants.StatusEnum;
 import com.smbc.schoollibrary.constants.ApiConstant.ResponseMessage;
 import com.smbc.schoollibrary.dto.BookRentDto;
+import com.smbc.schoollibrary.dto.SMBCResponseDto;
 import com.smbc.schoollibrary.models.BookCatalog;
 import com.smbc.schoollibrary.models.BookRents;
 import com.smbc.schoollibrary.models.Members;
@@ -32,7 +32,7 @@ public class BookRentsService {
     private final MembersRepository membersRepository;
     private final BookCatalogRepository bookCatalogRepository;
 
-    public ResponseEntity<?> getAllBookRents() {
+    public SMBCResponseDto<Object> getAllBookRents() {
         try {
             List<BookRents> bookRents = bookRentsRepository.findAll();
 
@@ -43,7 +43,7 @@ public class BookRentsService {
         }
     }
 
-    public ResponseEntity<?> createNewBookRent(BookRentDto request) {
+    public SMBCResponseDto<Object> createNewBookRent(BookRentDto request) {
         try {
             Optional<Members> memberExist = membersRepository.findByStudentNumber(request.getStudentNumber());
             Optional<BookCatalog> bookExist = bookCatalogRepository.findByBookCode(request.getBookCode());
@@ -78,7 +78,7 @@ public class BookRentsService {
         }
     }
 
-    public ResponseEntity<?> returnBook(BookRentDto request) {
+    public SMBCResponseDto<Object> returnBook(BookRentDto request) {
         try {
             Optional<BookRents> bookRentExist = bookRentsRepository.findByStudentNumberAndBookCodeAndStatus(
                     request.getStudentNumber(), request.getBookCode(), StatusEnum.RENTED);

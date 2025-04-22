@@ -1,21 +1,41 @@
 package com.smbc.schoollibrary.dto;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
-public interface ListBookPojo {
-    Long getId();
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Data
+@Getter
+@NoArgsConstructor
+public class ListBookPojo {
     
-    String getBookCode();
+    private Integer id;
 
-    String getTitle();
+    private String bookCode;
 
-    String getGenre();
+    private String title;
 
-    String getAuthor();
+    private String genre;
 
-    String getPublisher();
+    private String author;
 
-    LocalDate getPublishDate();
+    private String publisher;
 
-    String getBookStatus();
+    private Date publishDate;
+
+    private String bookStatus;
+
+    public ListBookPojo(Integer id, String bookCode, String title, String genre, String author, String publisher, Date publishDate, String bookStatus) {
+        this.id = id;
+        this.bookCode = bookCode;
+        this.title = title;
+        this.genre = genre;
+        this.author = author;
+        this.publisher = publisher;
+        this.publishDate = publishDate;
+        this.bookStatus = bookStatus;
+    }
 }

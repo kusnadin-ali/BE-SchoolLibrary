@@ -29,16 +29,47 @@ public interface BookCatalogRepository extends JpaRepository<BookCatalog, Long> 
                 bc.author,
                 bc.publisher,
                 bc.publish_date AS publishDate,
-            CASE
-                WHEN MAX(br.status) IN ('RENTED', 'OVERDUE') THEN 'Not Available'
-            ELSE 'Available'
+                CASE
+                    WHEN MAX(br.status) IN ('RENTED', 'OVERDUE') THEN 'Not Available'
+                    ELSE 'Available'
                 END AS bookStatus
             FROM book_catalog bc
             LEFT JOIN book_rents br ON bc.book_code = br.book_code
                 AND br.status IN ('RENTED', 'OVERDUE')
             WHERE bc.is_deleted = 0
-            GROUP BY bc.book_code, bc.title, bc.genre, bc.author, bc.publisher, bc.publish_date
-            HAVING (:availability IS NULL OR bookStatus = :availability);
-                    """, nativeQuery = true)
+            GROUP BY bc.id, bc.book_code, bc.title, bc.genre, bc.author, bc.publisher, bc.publish_date
+            HAVING (:availability IS NULL OR
+                CASE
+                    WHEN MAX(br.status) IN ('RENTED', 'OVERDUE') THEN 'Not Available'
+                    ELSE 'Available'
+                END = :availability)
+            """, nativeQuery = true)
     List<ListBookPojo> getAllWithAvailability(@Param("availability") String availability);
+
+    @Query(value = """
+            SELECT
+                bc.id,
+                bc.book_code AS bookCode,
+                bc.title,
+                bc.genre,
+                bc.author,
+                bc.publisher,
+                bc.publish_date AS publishDate,
+                CASE
+                    WHEN MAX(br.status) IN ('RENTED', 'OVERDUE') THEN 'Not Available'
+                    ELSE 'Available'
+                END AS bookStatus
+            FROM book_catalog bc
+            LEFT JOIN book_rents br ON bc.book_code = br.book_code
+                AND br.status IN ('RENTED', 'OVERDUE')
+            WHERE bc.is_deleted = 0
+            GROUP BY bc.id, bc.book_code, bc.title, bc.genre, bc.author, bc.publisher, bc.publish_date
+            HAVING (:availability IS NULL OR
+                CASE
+                    WHEN MAX(br.status) IN ('RENTED', 'OVERDUE') THEN 'Not Available'
+                    ELSE 'Available'
+                END = :availability)
+            """, nativeQuery = true)
+    List<Object[]> getAllWithAvailabilityObjectArray(@Param("availability") String availability);
+
 }

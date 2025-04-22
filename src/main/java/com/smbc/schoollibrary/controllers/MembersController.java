@@ -1,8 +1,7 @@
 package com.smbc.schoollibrary.controllers;
 
-import org.springframework.http.ResponseEntity;
-
 import com.smbc.schoollibrary.dto.MemberDto;
+import com.smbc.schoollibrary.dto.SMBCResponseDto;
 import com.smbc.schoollibrary.services.MembersService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,27 +25,27 @@ public class MembersController {
     private final MembersService membersService;
 
     @GetMapping
-    public ResponseEntity<?> getAllMember() {
+    public SMBCResponseDto<Object> getAllMember() {
         return membersService.getAllMember();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getDetailMember(@PathVariable Long id) {
+    public SMBCResponseDto<Object> getDetailMember(@PathVariable Long id) {
         return membersService.getMemberById(id);
     }
     
     @PostMapping
-    public ResponseEntity<?> createNewMember(@RequestBody MemberDto request) {
+    public SMBCResponseDto<Object> createNewMember(@RequestBody MemberDto request) {
         return membersService.createMember(request);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> editMember(@PathVariable Long id, @RequestBody MemberDto request) {
+    public SMBCResponseDto<Object> editMember(@PathVariable Long id, @RequestBody MemberDto request) {
         return membersService.updateMember(id, request);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMember(@PathVariable Long id) {
+    public SMBCResponseDto<Object> deleteMember(@PathVariable Long id) {
         return membersService.deleteMember(id);
     }
     
